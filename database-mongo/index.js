@@ -18,8 +18,8 @@ var itemSchema = mongoose.Schema({
 
 var Item = mongoose.model('Item', itemSchema);
 
-var selectAll = function(callback) {
-  Item.find({}, function(err, items) {
+var selectAll = (callback) => {
+  Item.find({}, (err, items) => {
     if(err) {
       callback(err, null);
     } else {

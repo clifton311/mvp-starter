@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import List from './components/List.jsx';
+import { Router, Route, Link, IndexRoute, hashHistory, browserHistory, DefaultRoute } from 'react-router'
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
       items: []
-    }
+    };
   }
 
   componentDidMount() {
@@ -17,7 +18,7 @@ class App extends React.Component {
       success: (data) => {
         this.setState({
           items: data
-        })
+        });
       },
       error: (err) => {
         console.log('err', err);
@@ -26,11 +27,15 @@ class App extends React.Component {
   }
 
   render () {
-    return (<div>
-      <h1>Item List</h1>
-      <List items={this.state.items}/>
-    </div>)
+    return (
+      <div>
+        <h1 className="h1">React Routing</h1>
+        
+
+      </div>)
   }
 }
+
+
 
 ReactDOM.render(<App />, document.getElementById('app'));

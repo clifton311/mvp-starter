@@ -5,13 +5,12 @@ var bodyParser = require('body-parser');
 // var items = require('../database-mongo');
 
 var app = express();
+var PORT = 3010;
 
-// UNCOMMENT FOR REACT
-// app.use(express.static(__dirname + '/../react-client/dist'));
 
-// UNCOMMENT FOR ANGULAR
-// app.use(express.static(__dirname + '/../angular-client'));
-// app.use(express.static(__dirname + '/../node_modules'));
+app.use(express.static(__dirname + '/../react-client/dist'));
+
+
 
 app.get('/items', function (req, res) {
   items.selectAll(function(err, data) {
@@ -23,7 +22,7 @@ app.get('/items', function (req, res) {
   });
 });
 
-app.listen(3000, function() {
-  console.log('listening on port 3000!');
+app.listen(PORT, function() {
+  console.log(`listening on port ${PORT}!`);
 });
 
