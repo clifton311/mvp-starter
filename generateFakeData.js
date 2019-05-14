@@ -8,12 +8,13 @@ const generateUsers = () => {
 
 
   for (var i = 0; i < records; i++) {
-
+    
     let firstname = faker.name.firstName();
     let lastname = faker.name.lastName();
     let age = faker.random.number({min:18, max:50});
 
     users.push({
+      "id": i,
       "firstname": firstname,
       "lastName": lastname,
       "age": age
@@ -21,10 +22,10 @@ const generateUsers = () => {
 
   }
   //console.log(users)
-  return users;
+  return {"data": users};
 };
 
 let fakeUsers = generateUsers();
 
 
-fs.writeFileSync('users', JSON.stringify(fakeUsers), null, '\,');
+fs.writeFileSync('users.json', JSON.stringify(fakeUsers), null, '\n');

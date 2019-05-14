@@ -1,13 +1,13 @@
-DROP DATABASE IF EXISTS test;
+DROP DATABASE IF EXISTS chinese;
 
-CREATE DATABASE test;
+CREATE DATABASE chinese;
 
-USE test;
+USE chinese;
 
-CREATE TABLE items (
+CREATE TABLE users (
   id int NOT NULL AUTO_INCREMENT,
-  quantity integer NOT NULL,
-  description varchar(50) NOT NULL,
+  firstName varchar(50) NOT NULL,
+  lastName varchar(50) NOT NULL,
   PRIMARY KEY (ID)
 );
 
