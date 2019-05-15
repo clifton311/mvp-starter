@@ -9,6 +9,7 @@ import {BrowserRouter} from 'react-router-dom'
 import axios from 'axios';
 
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -62,21 +63,11 @@ class App extends React.Component {
       <div>
         <h1 className="h1">Recipe Finder</h1>
         <Form getRecipe={this.getRecipe}/>
-
-          {this.state.recipes.map(recipe => {
-             return (
-                <div >
-                  <img src={recipe.image_url} alt={recipe.title}/>
-                  <p>{recipe.title}</p>
-                </div>
-             )
-          }) }
+        <Recipes recipes={this.state.recipes}/>
       </div>
     )
   }  
 } 
-
-
 
 
 ReactDOM.render(
