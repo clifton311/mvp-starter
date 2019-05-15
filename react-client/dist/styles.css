@@ -1,10 +1,24 @@
 h1 {
-  color: green;
+  color: purple;
 }
 
 .background {
   position: relative;
   width: 100%;
-
 }
 
+.recipe_button {
+  border:black;
+  position: relative;
+  background-color: red
+}
+
+.form_button {
+  background-color: aquamarine;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.recipe_title {
+  position:relative;
+  font-family: cursive
+}
