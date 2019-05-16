@@ -18,9 +18,20 @@ class App extends React.Component {
     this.getRecipe = this.getRecipe.bind(this)
   }
 
-  // componentDidMount() {
-  //   this.getRecipe()
-  // }
+  componentDidMount() {
+    //get item in local is in JSON format so needs to parse
+    let item = localStorage.getItem("recipes");
+    let recipes = JSON.parse(item);
+    this.setState({recipes});
+
+  }
+
+  componentDidUpdate () {
+    //only takes json.stringify
+    const recipes = JSON.stringify(this.state.recipes);
+    localStorage.setItem("recipes",recipes);
+
+  }
 
   // handleLog() {
   //   $.ajax({
@@ -45,7 +56,6 @@ class App extends React.Component {
        this.setState({
          recipes: results.data.recipes
        });
-       console.log("state",this.state.recipes);
       })
       .catch(err => {
         console.log(err);
