@@ -28,15 +28,18 @@ class Recipe extends React.Component {
 
   render () {
     const recipe = this.state.activeRecipe;
-    console.log("recipe" ,recipe);
       return (
+
         <div className="container">
           <img className="active_recipe" src={recipe.image_url} alt={recipe.title} />
-            <p className="recipe_title">{recipe.title}</p>
+
+            <p className="active-recipe__publisher">{recipe.title}</p>
               <h4>Publisher: <span>{recipe.publisher} </span></h4>
-            <p className="active_recipe">Website: 
-              <a href={recipe.source_url}></a>
+
+              <p className="active-recipe__website">Website: 
+              <span><a href={recipe.source_url}>{recipe.source_url}</a></span>
             </p>
+
             <button className="button"> 
                 <Link to="/">Return Home</Link>
             </button>

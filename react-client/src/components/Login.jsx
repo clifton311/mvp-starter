@@ -32,7 +32,8 @@ handleClick () {
 
           <label>Password: </label>
           <input type="text" name="password" placeholder="Enter Password..." onChange={this.handleChange}></input>
-          <button onClick={this.handleChange}>Login</button>
+
+          <button onClick={this.handleClick}>Login</button>
         </form>
         
     )

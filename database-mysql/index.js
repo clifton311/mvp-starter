@@ -4,8 +4,15 @@ var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : '',
-  database : 'test'
+  database : 'MVP'
 });
+
+connection.connect((err)=> {
+  if (err) {
+    console.error
+  }
+  console.log("connected to MYSQL");
+})
 
 var selectAll = function(callback) {
   connection.query('SELECT * FROM items', function(err, results, fields) {
