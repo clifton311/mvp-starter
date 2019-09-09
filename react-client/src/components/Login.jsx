@@ -1,43 +1,27 @@
 import React from 'react';
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      username: "",
-      password: ""
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-  }
-  
-handleChange(e) {
-  this.setState({
-    [e.target.name]: e.target.value
-  });
-}
-
-handleClick () {
-  
-}
-
-  render() {
+const Login = props => {
     return (
-        <form>
+      <div>
+        <h1 className="register"> Welcome to Recipe Finder!</h1>
+        <p>If already registered, login in below</p>
 
+        <form>
           <label>Log In: 
-          <input type="text" name="username" placeholder="Enter Username..." onChange={this.handleChange}></input>
+          <input type="text" name="username" placeholder="Enter Username..." onChange={props.handleChange} className="login-input"></input>
           </label> <br></br>
 
           <label>Password: </label>
-          <input type="text" name="password" placeholder="Enter Password..." onChange={this.handleChange}></input>
+          <input type="text" name="password" placeholder="Enter Password..." onChange={props.handleChange} className="login-input"></input>
 
-          <button onClick={this.handleClick}>Login</button>
+          <button className="login_button" onClick={props.handleClick}>Login</button>
+          <button className="login_button" onClick={props.pageViewChange} style ={{margin: "10px"}}>Register Here </button>
+    
         </form>
-        
+       
+      </div>
     )
   }
-}
+
 
 export default Login;

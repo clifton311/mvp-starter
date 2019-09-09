@@ -15,11 +15,18 @@ class App extends React.Component {
 
     this.state = { 
       recipes: [],
-      count: 0
+      count: 0,
+      login: true,
+      pageView: 0,
+      username: "",
+      password: ""
     };
 
     this.getRecipe = this.getRecipe.bind(this);
     this.incrementMe = this.incrementMe.bind(this);
+    this.isRegistered = this.isRegistered.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.pageViewChange = this.pageViewChange.bind(this)
   }
 
   componentDidMount() {
@@ -34,24 +41,30 @@ class App extends React.Component {
     //only takes json.stringify
     const recipes = JSON.stringify(this.state.recipes);
     localStorage.setItem("recipes",recipes);
-
   }
 
-  // handleLog() {
-  //   $.ajax({
-  //     url: '/users',
-  //     method: 'POST',
-  //     data: this.state,
-  //     success: (data) => {
-  //       this.setState({
-  //         items: data
-  //       });
-  //     },
-  //     error: (err) => {
-  //       console.log("err", err)
-  //     }
-  //   });
-  // }
+  handleChange(e) {
+    this.setState({
+      username: e.target.value,
+      password: e.target.value
+    })
+  }
+
+  handleLog() {
+    $.ajax({
+      url: '/users',
+      method: 'POST',
+      data: this.state,
+      success: (data) => {
+        this.setState({
+          items: data
+        });
+      },
+      error: (err) => {
+        console.log("err", err)
+      }
+    });
+  }
 
   incrementMe() {
     let newCount = this.state.count + 1;
@@ -60,10 +73,23 @@ class App extends React.Component {
     });
   }
 
+  isRegistered () {
+    this.setState({
+      login: !this.state.login,
+      isRegistered: !this.state.isRegistered
+    })
+  }
+
+  pageViewChange () {
+    this.setState({
+      pageView: 1
+    })
+  }
+
   getRecipe (e) {
     const value = e.target.elements.recipe.value;
     const number = 6;
-     axios.get(`https://cors-anywhere.herokuapp.com/https://www.food2fork.com/api/search?key=ba5048a28634fc6e5a79ae35592b0fe3&q=${value}&count=${number}`)
+     axios.get(`https://cors-anywhere.herokuapp.com/https://www.food2fork.com/api/search?key=76521c50a5da5eed488968b0bfa15ce9&q=${value}&count=${number}`)
       .then(results => {
        this.setState({
          recipes: results.data.recipes
@@ -77,11 +103,14 @@ class App extends React.Component {
   }
 
   render () {  
+    
     return (
       <div className="App">
         <h1 className="App-title">Recipe Finder</h1> <br></br>
-        <Form getRecipe={this.getRecipe}/>
-        <Recipes recipes={this.state.recipes} likes={this.state.count} incrementMe={this.incrementMe}/>
+        {this.state.pageView === 0 ? <Login pageViewChange={this.pageViewChange} handleChange={this.handleChange}/> : <Register />}
+        
+        {/* <Form getRecipe={this.getRecipe}/>
+        <Recipes recipes={this.state.recipes} likes={this.state.count} incrementMe={this.incrementMe}/> */}
       </div>
     )
   }  

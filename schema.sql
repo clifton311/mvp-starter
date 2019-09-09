@@ -6,11 +6,12 @@ USE MVP;
 
 CREATE TABLE users (
   id int NOT NULL AUTO_INCREMENT,
-  firstName varchar(50) NOT NULL,
-  lastName varchar(50) NOT NULL,
-  email varchar(255) NOT NULL,
-  age INT(10),
-  PRIMARY KEY (ID)
+  firstName varchar(50),
+  lastName varchar(50),
+  userName varchar (50),
+  email varchar(255),
+  password varchar(50),
+  PRIMARY KEY (id)
 );
 
 /*  Execute this file from the command line by typing:

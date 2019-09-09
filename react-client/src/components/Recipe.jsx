@@ -2,14 +2,19 @@ import React from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom'
 
+ 
 class Recipe extends React.Component {
   constructor(props) {
     super(props);
   
     this.state = {
-      activeRecipe: []
+      activeRecipe: [],
+      favorite: true
     };
 
+
+    
+    this.favoriteToggle = this.favoriteToggle.bind(this);
   }
 
   componentDidMount()  {
@@ -19,11 +24,16 @@ class Recipe extends React.Component {
        this.setState({
          activeRecipe: results.data.recipes[0]
        });
-      console.log("state",this.state.activeRecipe);
       })
       .catch(err => {
         console.log(err);
       });
+  }
+
+  favoriteToggle () {
+    this.setState({
+      favorite: !this.state.favorite
+    });
   }
 
   render () {
@@ -43,6 +53,9 @@ class Recipe extends React.Component {
             <button className="button"> 
                 <Link to="/">Return Home</Link>
             </button>
+
+            <button onClick={this.favoriteToggle}>favorite</button>
+         
         </div>
       )
   }

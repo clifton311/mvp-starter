@@ -1,15 +1,22 @@
 import React from 'react';
 import Link from 'react-router-dom';
+import axios from 'axios';
 
 class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
+      firstName: "",
+      lastName: "",
+      userName: "",
       email: "",
       password: "",
-      errors: {}
+      IsRegistered: true,
+      currentUser: ''
     };
+
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange(e) {
@@ -18,57 +25,76 @@ class Register extends React.Component {
     });
   }
 
-  onSubmit(e) {
+  handleSubmit(e) {
     e.preventDefault();
+     const newUser = {
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      email: this.state.email,
+      userName: this.state.userName
+      
+     }
+     console.log(newUser)
+     axios.post('users/new', newUser)
+      .then((response) => {
+        console.log(response)
+    })
+    .catch(
+      console.log("user not submitted")
+    )
   }
-//  const newUser = {
-//     username: this.state.username,
-//     email: this.state.email,
-//     password: this.state.password
-//  }
 
   render () {
     return (
       <div>
-        {/* <div>
-            <Link to="/" className="btn-flat waves-effect">
-              <i className="material-icons left">keyboard_backspace</i> Back to
-              home
-            </Link>
-        </div> */}
-
-        <h1 className="register">Register Here</h1>
+      <h1 className="register"> Welcome to Recipe Finder!</h1>
+        <p>Please Register Below</p>
         
-        <form onSubmit={this.onSubmit}>
-        
-          <label>Enter Email:</label>
+        <form onSubmit={this.handleSubmit}>
+          <label>Enter First Name: </label>
           <input type="text" 
-            name="email" 
+            name="firstName" 
             onChange={this.handleChange}
-            placeholder="Enter email..."></input><br></br>
+            placeholder="Enter First Name...">
+          </input> <br></br>
+
+          <label>Enter Last Name: </label>
+          <input type="text" 
+            name="lastName" 
+            onChange={this.handleChange}
+            placeholder="Enter Last Name...">
+          </input> <br></br>
 
           <label>Enter Password:</label>
           <input type="text" 
             name="password" 
             onChange={this.handleChange}
-            placeholder="Enter Password..."></input><br></br>
+            placeholder="Enter Password...">
+          </input> <br></br>
 
-          <label>Enter Age:</label>
+          <label>Enter Username:</label>
           <input type="text" 
-            name="age" 
+            name="userName" 
             onChange={this.handleChange}
-            placeholder="Enter Age..."></input><br></br>
+            placeholder="Enter Username...">
+          </input> <br></br>
+
+          <label>Enter Email:</label>
+          <input type="text" 
+            name="email" 
+            onChange={this.handleChange}
+            placeholder="Enter email...">
+          </input> <br></br>
 
           <button style={{
             width: "150px",
-            borderRadius: "3px",
-            }}
+            borderRadius: "3px", }}
             type="submit"
-            > Sign Up
+            onSubmit={this.handleSubmit}
+            >Sign Up
           </button>
 
         </form>
-
       </div>
     )
   }
