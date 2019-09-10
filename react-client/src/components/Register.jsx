@@ -12,7 +12,8 @@ class Register extends React.Component {
       email: "",
       password: "",
       IsRegistered: true,
-      currentUser: ''
+      currentUser: '',
+      message: ''
     };
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -31,13 +32,16 @@ class Register extends React.Component {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       email: this.state.email,
-      userName: this.state.userName
-      
+      userName: this.state.userName,
+      password: this.state.password
      }
      console.log(newUser)
      axios.post('users/new', newUser)
       .then((response) => {
         console.log(response)
+        this.setState({
+          message: "Sucess"
+        })
     })
     .catch(
       console.log("user not submitted")
