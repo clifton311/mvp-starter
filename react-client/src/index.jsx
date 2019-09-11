@@ -4,4 +4,4 @@ import Router from "./components/Router.jsx";
 import App from "./components/App.jsx"
 
 
-ReactDOM.render( <App/>, document.getElementById('app'));
+ReactDOM.render( <Router/>, document.getElementById('app'));

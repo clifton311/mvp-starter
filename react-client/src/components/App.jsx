@@ -27,6 +27,7 @@ class App extends React.Component {
     this.isRegistered = this.isRegistered.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.pageViewChange = this.pageViewChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount() {
@@ -50,21 +51,6 @@ class App extends React.Component {
     })
   }
 
-  handleLog() {
-    $.ajax({
-      url: '/users',
-      method: 'POST',
-      data: this.state,
-      success: (data) => {
-        this.setState({
-          items: data
-        });
-      },
-      error: (err) => {
-        console.log("err", err)
-      }
-    });
-  }
 
   incrementMe() {
     let newCount = this.state.count + 1;
@@ -83,6 +69,24 @@ class App extends React.Component {
   pageViewChange () {
     this.setState({
       pageView: 1
+    })
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+  
+    axios.post('/api/login', {
+      username: this.state.username,
+      password: this.state.password
+    })
+    .then((response) => {
+      console.log('response',response)
+      if (response.status === 200) {
+        console.log('good')
+      }
+    })
+    .catch( error => {
+      console.log('login error', error)
     })
   }
 
@@ -106,11 +110,17 @@ class App extends React.Component {
     
     return (
       <div className="App">
+        <Navbar />
         <h1 className="App-title">Recipe Finder</h1> <br></br>
-        {this.state.pageView === 0 ? <Login pageViewChange={this.pageViewChange} handleChange={this.handleChange}/> : <Register />}
-        
+         <Login 
+          pageViewChange={this.pageViewChange} 
+          handleChange={this.handleChange} 
+          handleSubmit={this.handleSubmit}
+          /> 
+          
         {/* <Form getRecipe={this.getRecipe}/>
-        <Recipes recipes={this.state.recipes} likes={this.state.count} incrementMe={this.incrementMe}/> */}
+        <Recipes recipes={this.state.recipes} likes={this.state.count} incrementMe={this.incrementMe}/>  */}
+
       </div>
     )
   }  

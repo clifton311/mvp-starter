@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'react-router-dom';
 import axios from 'axios';
 
+
 class Register extends React.Component {
   constructor(props) {
     super(props);
@@ -18,12 +19,19 @@ class Register extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+  
   }
 
   handleChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
+  }
+
+ CompleteRegistration() {
+    if (this.state.message === "Success") {
+      this.props.IsRegistered()
+    }
   }
 
   handleSubmit(e) {
@@ -36,12 +44,13 @@ class Register extends React.Component {
       password: this.state.password
      }
      console.log(newUser)
-     axios.post('users/new', newUser)
+     axios.post('/api/users/new', newUser)
       .then((response) => {
         console.log(response)
         this.setState({
-          message: "Sucess"
+          message: "Success"
         })
+       
     })
     .catch(
       console.log("user not submitted")
@@ -98,7 +107,10 @@ class Register extends React.Component {
             >Sign Up
           </button>
 
+         <a href="/">Return Home</a>
+            
         </form>
+        
       </div>
     )
   }

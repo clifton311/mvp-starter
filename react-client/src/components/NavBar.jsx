@@ -1,27 +1,19 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 
-class Navbar extends Component {
+class NavBar extends Component {
   render() {
     return (
-      <div className="navbar-fixed">
-        <nav className="z-depth-0">
-          <div className="nav-wrapper white">
-            <Link
-              to="/"
-              style={{
-                fontFamily: "monospace"
-              }}
-              className="col s5 brand-logo center black-text"
-            >
-              <i className="material-icons">code</i>
-              Submit
-            </Link>
-          </div>
-        </nav>
-      </div>
-    );
+      <header>
+        <ul className="headerButtons">
+          <li className="navButton"><Link to="" style={{color:"white"}}>Home</Link></li>
+          <li className="navButton"><Link to="/login" style={{color:"white"}}>Login</Link></li>
+          <li className="navButton"><Link to="/register" style={{color:"white"}}>Register Here</Link></li>
+        </ul>
+      </header>
+    )
   }
 }
-export default Navbar;
+
+export default NavBar;
 

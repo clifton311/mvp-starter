@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom'
 
- 
 class Recipe extends React.Component {
   constructor(props) {
     super(props);
@@ -11,8 +10,6 @@ class Recipe extends React.Component {
       activeRecipe: [],
       favorite: true
     };
-
-
     
     this.favoriteToggle = this.favoriteToggle.bind(this);
   }
