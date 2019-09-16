@@ -4,9 +4,12 @@ import $ from 'jquery';
 import Login from './Login.jsx';
 import Form from './Forms.jsx';
 import Recipes from './Recipes.jsx';
+import Recipe from './Recipe.jsx';
 import axios from 'axios';
 import Register from './Register.jsx';
 import Navbar from './NavBar.jsx';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import { runInThisContext } from 'vm';
 
 
 class App extends React.Component {
@@ -19,7 +22,8 @@ class App extends React.Component {
       login: true,
       pageView: 0,
       username: "",
-      password: ""
+      password: "",
+      isAuthenticated: true
     };
 
     this.getRecipe = this.getRecipe.bind(this);
@@ -28,6 +32,7 @@ class App extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.pageViewChange = this.pageViewChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.returnHome=this.returnHome.bind(this)
   }
 
   componentDidMount() {
@@ -66,15 +71,25 @@ class App extends React.Component {
     })
   }
 
-  pageViewChange () {
+  isAuthenticated() {
+
+  }
+
+  pageViewChange (e) {
+    e.preventDefault()
     this.setState({
-      pageView: 1
+      pageView: 3
+    })
+  }
+
+ returnHome () {
+    this.setState({
+      pageView: 0
     })
   }
 
   handleSubmit(e) {
     e.preventDefault()
-  
     axios.post('/api/login', {
       username: this.state.username,
       password: this.state.password
@@ -107,22 +122,49 @@ class App extends React.Component {
   }
 
   render () {  
-    
-    return (
-      <div className="App">
-        <Navbar />
-        <h1 className="App-title">Recipe Finder</h1> <br></br>
-         <Login 
-          pageViewChange={this.pageViewChange} 
-          handleChange={this.handleChange} 
-          handleSubmit={this.handleSubmit}
-          /> 
-          
-        {/* <Form getRecipe={this.getRecipe}/>
-        <Recipes recipes={this.state.recipes} likes={this.state.count} incrementMe={this.incrementMe}/>  */}
 
-      </div>
-    )
+    if (this.state.pageView === 0) {
+       return (
+        <div className="App">
+          <h1 className="App-title">Recipe Finder</h1> <br></br>
+           <Login 
+            pageViewChange={this.pageViewChange} 
+            handleChange={this.handleChange} 
+            handleSubmit={this.handleSubmit}
+            /> 
+           <Form getRecipe={this.getRecipe}/> */}
+           <Recipes recipes={this.state.recipes} likes={this.state.count} incrementMe={this.incrementMe}/>  
+        </div>
+      )
+    } else if ( this.state.pageView === 1){
+      return(
+        <div>
+          <Form getRecipe={this.getRecipe}/>
+          <Recipes recipes={this.state.recipes} likes={this.state.count} incrementMe={this.incrementMe}/>  
+        </div>
+      )
+    } else {
+      return (
+        <Register pageViewChange={this.returnHome}/>
+      )
+    }
+    // return (
+    //   <Router>
+    //     <div>
+    //     <Switch>
+    //       <Route exact path="/" component={Login} exact />
+    //       <Route exact path="/recipe/:id" 
+    //           render={()=> 
+    //             this.state.isAuthenticated ? <Redirect to="/recipe" /> : <Login />} />
+    //       <Route exact path="/login" component={Login} />
+    //       <Route exact path="/register" component={Register} />
+    //     </Switch>
+
+    //     </div>
+    //   </Router>
+      
+  
+    
   }  
 } 
  export default App;

@@ -1,9 +1,9 @@
 var mysql = require('mysql')
 var bcrypt = require('bcrypt')
 const saltRounds = 10;
-var passport = require('passport')
 var db = require('./db.js')
 const { check, validationResult } = require('express-validator');
+var passport = require('passport')
 
 
 var selectAll = (req, res) => {
@@ -17,10 +17,6 @@ var selectAll = (req, res) => {
 };
 
 const registerUser = (req, res) => {
-  console.log("body",req.body)
-
- 
-
   const password = req.body.password
   // Store hash in your password DB.
   bcrypt.hash( password, saltRounds, (err, hash) => {
@@ -32,33 +28,30 @@ const registerUser = (req, res) => {
         res.sendStatus(500)
         console.log(err)
       } else {
-        console.log(results)
-        console.log(`Success! Added to the database!`);
+        console.log(`Success! Added to the database!`, results);
         // res.send(results)
       }
     });
-    db.query('SELECT LAST_INSERT_ID() as user_id', (error, results, fields) => {
-      if (error) throw error;
-      const user_id = results[0]
-      console.log('Bcrypt --->',results[0]);
-      req.login(user_id, err => {
-         return res.redirect('/users')
+
+      db.query('SELECT LAST_INSERT_ID() as user_id', (error, results, fields) => {
+        if (error) throw error;
+        const user_id = results[0]
+        console.log('Bcrypt --->',results[0]);
+        req.login(user_id, err => {
+          return res.redirect('/')
+        })
       })
-    })
   });
 };
 
 
+passport.serializeUser(function(user_id, done) {
+  done(null, user_id);
+});
 
-// passport.serializeUser(function(user, done) {
-//   done(null, user.id);
-// });
-
-// passport.deserializeUser(function(id, done) {
-   
-//     done(err, user);
-  
-// });
+passport.deserializeUser(function(user_id, done) {
+   done(null, user_id);
+});
 
 module.exports = {
   selectAll,

@@ -9,7 +9,7 @@ module.exports = {
     path: DIST_DIR
   },
   module : {
-    loaders : [
+    rules : [
       {
         test : /\.jsx?/,
         include : SRC_DIR,
@@ -17,7 +17,18 @@ module.exports = {
         query: {
           presets: ['react', 'es2015']
        }
+      },
+      {
+        test: /\.(png|jp(e*)g|svg)$/,  
+        use: [
+          {
+            loader: 'url-loader',
+            options: { 
+                limit: 8192, // Convert images < 8kb to base64 strings
+            } 
+          }
+        ]
       }
-    ]
+    ]  
   }
 };
